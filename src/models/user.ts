@@ -1,5 +1,6 @@
-import crypto from "crypto";
+import bcrypt from 'bcrypt';
 import mongoose, { Document, Schema } from "mongoose";
+
 
 export interface User extends Document {
     name: string
@@ -21,22 +22,14 @@ const UserSchema: Schema = new Schema({
     passwordSalt: { type: String, required: true }
 })
 
-UserSchema.methods.setPassword = function (password: string) {
-
-    this.passwordSalt = crypto.randomBytes(16).toString("hex")
-
-    this.passwordHash = crypto.pbkdf2Sync(password, this.passwordSalt, 1000, 64, "sha512").toString("hex")
-
-    return
+UserSchema.methods.setPassword = async function (password: string): Promise<void> {
+    const salt = 10
+    this.passwordHash = await bcrypt.hash(password, salt)
 
 }
 
-UserSchema.methods.validatePassword = function (password: string) {
-
-
-    const hash = crypto.pbkdf2Sync(password, this.passwordSalt, 1000, 64, "sha512").toString("hex")
-
-    return this.passwordHash === hash
+UserSchema.methods.validatePassword = async function (password: string): Promise<boolean> {
+    return bcrypt.compare(password, this.passwordHash)
 }
 
 export default mongoose.model<User>("User", UserSchema)

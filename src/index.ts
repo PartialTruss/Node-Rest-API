@@ -1,7 +1,7 @@
 import bodyParser from "body-parser"
 import "dotenv/config"
 import express from "express"
-import { connectToDatabase } from "./lib/dbConnection"
+import { connectToDatabase } from "./lib/dbConnection.ts"
 const transactionsRouter = await import("./routes/transactions.ts")
 
 

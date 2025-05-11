@@ -1,4 +1,4 @@
-export interface Transactions {
+export interface TransactionsBody {
     description: string
     total: number
     date: Date

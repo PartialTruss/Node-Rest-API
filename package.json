@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --exec \"node --loader ts-node/esm --env-file .env\" src/index.ts --stage local",
+    "dev": "nodemon --exec \"node --import ./register-loader.mjs --env-file .env\" src/index.ts --stage local",
     "start": "node --loader ts-node/esm src/index.ts",
     "build": "tsc",
     "serve": "node dist/index.js",
@@ -16,7 +16,9 @@
   "description": "",
   "dependencies": {
     "@arcjet/node": "^1.0.0-alpha.34",
+    "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
+    "bcrypt": "^5.1.1",
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
     "crypto-js": "^4.2.0",
