@@ -10,7 +10,7 @@ export interface Transactions extends Document {
 }
 
 const TransactionSchema: Schema = new Schema({
-    descripton: { type: String, required: true },
+    description: { type: String, required: true },
     total: { type: Number, required: true },
     date: { type: Date, required: true },
     user: { type: Schema.Types.ObjectId, ref: "User", required: true },
