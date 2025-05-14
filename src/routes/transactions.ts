@@ -6,6 +6,21 @@ import { TransactionsBody } from "./types.ts"
 
 const router = express.Router()
 
+
+router.get("/", async (req: Request, res: Response) => {
+
+    try {
+
+        const transactions = await Transactions.find()
+        return res.status(200).json({ transactions })
+
+    } catch (error) {
+
+        return res.status(500).json({ error: "Internal server error" })
+    }
+})
+
+
 router.post("/", async (req: Request<{}, {}, TransactionsBody>, res: Response) => {
     try {
 
